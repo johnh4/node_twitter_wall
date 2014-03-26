@@ -167,8 +167,8 @@ button:active {
 	height: 900px;
 	width: 900px;
 	//background: url('http://a1.mzstatic.com/us/r30/Purple6/v4/ee/73/42/ee7342be-f9c5-7b14-fa89-13ee93b8f6b5/mzl.wsyubhrg.png');
-	background: url('../images/twitter-bird.jpg');
-	background: url('../images/twitterBirdTransparent.png');
+	background: url('../../images/twitter-bird.jpg');
+	background: url('../../images/twitterBirdTransparent.png');
 	//background: url('http://upcity.com/blog/wp-content/uploads/2014/02/twitter-bird-white-on-blue-xl.png');
 	//height: 1500px;
 	//width: 3000px;
