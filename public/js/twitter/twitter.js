@@ -334,35 +334,7 @@ function init() {
 	controls.maxDistance = 6000;
 	controls.addEventListener( 'change', render );
 
-	var button = document.getElementById( 'table' );
-	button.addEventListener( 'click', function ( event ) {
-		console.log('table clicked');
-
-		transform( targets.table, 2000 );
-
-	}, false );
-
-	var button = document.getElementById( 'sphere' );
-	button.addEventListener( 'click', function ( event ) {
-
-		transform( targets.sphere, 2000 );
-
-	}, false );
-
-	var button = document.getElementById( 'helix' );
-	button.addEventListener( 'click', function ( event ) {
-
-		transform( targets.helix, 2000 );
-
-	}, false );
-
-	var button = document.getElementById( 'grid' );
-	button.addEventListener( 'click', function ( event ) {
-
-		transform( targets.grid, 2000 );
-
-	}, false );
-
+	
 	var button = document.getElementById( 'latest' );
 	button.addEventListener( 'click', function ( event ) {
 
@@ -371,9 +343,6 @@ function init() {
 		next = null;
 
 	}, false );
-
-	var button = document.getElementById( 'conga' );
-	button.addEventListener( 'click', runConga, false );
 
 	var button = document.getElementById( 'back' );
 	button.addEventListener( 'click', function ( event ) {
@@ -433,9 +402,6 @@ function init() {
 		spliceOffset = 0;
 
 	}, false );
-
-
-	transform( targets.table, 5000 );
 
 	//
 
