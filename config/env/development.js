@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/mean-dev',
-    //db: 'mongodb://meanadmind:password123@oceanic.mongohq.com:10027/app23411827',
+    //db: 'mongodb://localhost/mean-dev',
+    db: 'mongodb://meanadmin:password123@oceanic.mongohq.com:10027/app23411827',
     app: {
         name: 'MEAN - A Modern Stack - Development'
     },
