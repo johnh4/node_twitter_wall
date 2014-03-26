@@ -14,6 +14,34 @@ $(function() {
       if(acceptTweet){
         console.log('match triggered');
         
+        // create an html element using the tweet's data
+        var element = createTweetEl(tweet);
+
+        // Add element to the scene as object, store object in element as property for future reference
+        var object = positionObj(element);
+
+        // keep the elements count to size limit
+        manageSize();
+
+        // Move object to a new, random position
+        moveToNew(object, element);      
+
+        objects.push( object );
+
+        if(congaOn){
+            runConga();
+        }
+
+        acceptTweet = false;
+        var timeout = 3500;
+        
+        window.setTimeout(function(){
+          acceptTweet = true
+        }, timeout);
+      }
+    });
+
+    function createTweetEl(tweet){
         if(tweet.retweeted_status){
             var retweeter = tweet.user.name;
             tweet = tweet.retweeted_status;
@@ -116,6 +144,10 @@ $(function() {
             $(element).append(mediaIm);
         }
 
+        return element;
+    }
+
+    function positionObj(element){
         // Add object to the scene in initial position
         var object = new THREE.CSS3DObject( element );
         object.position.x = 0;
@@ -127,13 +159,18 @@ $(function() {
         element.threeObj = object;
         element.addEventListener('mousedown', onDocumentMouseDown);
 
-        // keep the elements count to size limit
+        // Link prev/next objects
         if(objA.length > 0){
             var lastObj = objA[objA.length-1];
             lastObj.nextO = object;
             object.prevO = lastObj;
         }
         objA.push(object);
+
+        return object;
+    }
+
+    function manageSize(){
         console.log('objA.length', objA.length);
         if(objA.length > limit){
             var removeCount = objA.length - limit;
@@ -145,7 +182,9 @@ $(function() {
             spliceOffset += removeCount;
             render();
         }
+    }
 
+    function moveToNew(object, element){
         // Choose a new, random position
         var newPos = {};
         newPos.x = Math.random() * 4000 - 2000;
@@ -171,25 +210,7 @@ $(function() {
                 .to( { x: newPos.x, y: newPos.y, z: newPos.z + 600}, Math.random() * 1000 + 1000 )
                 .easing( TWEEN.Easing.Exponential.InOut )
                 .start();
-        }      
-
-        objects.push( object );
-
-        if(congaOn){
-            runConga();
         }
-
-        acceptTweet = false;
-        var timeout = 3500;
-        
-        window.setTimeout(function(){
-          acceptTweet = true
-        }, timeout);
-      }
-    });
-
-    function createTweetEl(tweet){
-        
     }
     
     function parseTwitterDate(tdate) {

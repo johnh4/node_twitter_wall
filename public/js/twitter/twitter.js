@@ -24,39 +24,7 @@ function init() {
 
 	projector = new THREE.Projector();
 
-  // background image
-  var birdEl = document.createElement('div');
-  birdEl.className = 'bird';
-
-	var object = new THREE.CSS3DObject( birdEl );
-	object.position.x = 0;
-	object.position.y = 0;
-	object.position.z = 0;
-	twerk(object);
-	scene.add( object );
-
-	function twerk(bird){
-		var frequency = 1500;
-		var up = true;
-		window.setInterval(function(){
-			var moveTo = {};
-			if(Math.random() >= .5){
-				if(up){
-					moveTo.x = bird.position.x + 30;
-					moveTo.y = bird.position.y + 30;
-				} else {
-					moveTo.x = bird.position.x - 30;
-					moveTo.y = bird.position.y - 30;
-				}
-				new TWEEN.Tween( bird.position )
-					.to( { x: moveTo.x, y: moveTo.y }, 200 )
-					.easing( TWEEN.Easing.Exponential.InOut )
-					.start();
-				render();
-				up = !up;
-			}
-		}, frequency);
-	}
+  createBird();
 
 	//
 
@@ -74,6 +42,15 @@ function init() {
 	controls.addEventListener( 'change', render );
 
 	
+	addButtonEvents(camera);
+
+	//
+
+	window.addEventListener( 'resize', onWindowResize, false );
+
+}
+
+function addButtonEvents(camera){
 	var button = document.getElementById( 'latest' );
 	button.addEventListener( 'click', function ( event ) {
 
@@ -132,11 +109,42 @@ function init() {
 		spliceOffset = 0;
 
 	}, false );
+}
 
-	//
+function createBird(){
+	// background image
+  var birdEl = document.createElement('div');
+  birdEl.className = 'bird';
 
-	window.addEventListener( 'resize', onWindowResize, false );
+	var object = new THREE.CSS3DObject( birdEl );
+	object.position.x = 0;
+	object.position.y = 0;
+	object.position.z = 0;
+	twerk(object);
+	scene.add( object );
 
+	function twerk(bird){
+		var frequency = 1500;
+		var up = true;
+		window.setInterval(function(){
+			var moveTo = {};
+			if(Math.random() >= .5){
+				if(up){
+					moveTo.x = bird.position.x + 30;
+					moveTo.y = bird.position.y + 30;
+				} else {
+					moveTo.x = bird.position.x - 30;
+					moveTo.y = bird.position.y - 30;
+				}
+				new TWEEN.Tween( bird.position )
+					.to( { x: moveTo.x, y: moveTo.y }, 200 )
+					.easing( TWEEN.Easing.Exponential.InOut )
+					.start();
+				render();
+				up = !up;
+			}
+		}, frequency);
+	}
 }
 
 function runConga(){
