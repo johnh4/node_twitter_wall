@@ -1,32 +1,32 @@
 // Setup twitter streaming
 var twitter = require('ntwitter'),
-    //io = require('socket.io'),
     _ = require('underscore');
-    //http = require('http');
 
 module.exports = function(app, sockets){
   
-
+  // Setup twitter API access
   var t = new twitter({
-      //rest_base: 'https://api.twitter.com/1.1',
       consumer_key: 'cPE5QwZQbnMX4zRHNFUsA',           // <--- FILL ME IN
       consumer_secret: 'gkCHSKZplvb5K3edoNWz3q7lvcOJPFzeNQ4kvUB6S4',        // <--- FILL ME IN
       access_token_key: '15854229-ILHfY2kPICpFPm6d4OOWVUG36byi1xVHNLfcDOoiz',       // <--- FILL ME IN
       access_token_secret: 'bZKoNCrUS4EUQxodj1wLUw6Dpy6hZCfzst3ift9sP9UGk'     // <--- FILL ME IN
   });
-  var trends = [];
+
+  // USA
   var trendsLoc = 2458410;
+
+  // Get the top 10 trending topics from twitter
+  var trends = [];
   t.get('/trends/place.json', { id: trendsLoc }, function(err,data) {
-      console.log(data);
       var trendsO = data[0].trends;
-      console.log('trends0', trendsO);
       trends = _.map(trendsO, function(trend){
-        //console.log('name', trend.name);
         return trend.name;
       });
       console.log("trends", trends);
       startStream();
   });
+
+  // Stream tweets from the previously fetched trending topics
   function startStream() {
     console.log('starting the stream');
     t.stream('statuses/filter', { track: trends, language: 'en' }, function(stream) {
