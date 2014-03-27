@@ -24,6 +24,7 @@ function init() {
 
 	projector = new THREE.Projector();
 
+	// Add the twitter bird background to the scene
   createBird();
 
 	//
