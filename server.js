@@ -76,6 +76,20 @@ var serv = http.createServer(app);
 var sockets = io.listen(serv);
 require('./config/twitter_stream')(app, sockets);
 
+// new cronJob('0 0 * * * *', function(){
+
+//     // Reset the stream
+    
+//     //Reset the total
+//     watchList.total = 0;
+
+//     //Clear out everything in the map
+//     _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
+
+//     //Send the update to the clients
+//     sockets.sockets.emit('data', watchList);
+// }, null, true);
+
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;
 serv.listen(port);

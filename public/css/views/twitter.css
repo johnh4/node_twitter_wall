@@ -5,7 +5,7 @@ html, body {
 body {
 	background-color: rgb(89,173,235);
 	margin: 0;
-	font-family: Helvetica, sans-serif;;
+	font-family: Helvetica, sans-serif;
 	overflow: hidden;
 }
 
@@ -103,8 +103,9 @@ a {
 		position: relative;
 		left: 0px;
 		right: 0px;
+		font-family: Helvetica, sans-serif;
 		font-size: 12px;
-		font-weight: normal;
+		font-weight: 100;
 		color: rgba(127,255,255,0.75);
 		color: white;
 	}

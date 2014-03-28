@@ -17,23 +17,40 @@ module.exports = function(app, sockets){
 
   // Get the top 10 trending topics from twitter
   var trends = [];
-  t.get('/trends/place.json', { id: trendsLoc }, function(err,data) {
-      var trendsO = data[0].trends;
-      trends = _.map(trendsO, function(trend){
-        return trend.name;
-      });
-      console.log("trends", trends);
-      startStream();
-  });
-
+  function getTrends(){
+    t.get('/trends/place.json', { id: trendsLoc }, function(err,data) {
+        var trendsO = data[0].trends;
+        trends = _.map(trendsO, function(trend){
+          return trend.name;
+        });
+        console.log("trends", trends);
+        startStream();
+    });  
+  }
+  
   // Stream tweets from the previously fetched trending topics
   function startStream() {
     console.log('starting the stream');
     t.stream('statuses/filter', { track: trends, language: 'en' }, function(stream) {
       stream.on('data', function(tweet) {
-          console.log(tweet.text);
+          //console.log(tweet.text);
           sockets.sockets.emit('match', tweet);
       });
+
+      // Get new trends once an hour
+      setTimeout(function(){
+        restartStream(stream);
+      }, 1000 * 60 * 60);
     });
   };
+
+  function restartStream(stream){
+    console.log('RESTARTING THE STREAM.');
+    stream.destroy();
+    getTrends();
+    // startStream();
+  }
+
+  getTrends();
+  // startStream();
 }
