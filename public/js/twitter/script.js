@@ -212,6 +212,12 @@ $(function() {
                 .start();
         }
     }
+
+    window.newestTrends = [];
+    socket.on('trends', function(trends){
+        console.log('trends event received', trends);
+        window.newestTrends = trends;
+    });
     
     function parseTwitterDate(tdate) {
         var system_date = new Date(Date.parse(tdate));
